@@ -16,10 +16,14 @@ class Board():
         if self.cells[cell_no] == " ":
             self.cells[cell_no] = playr
     def winner(self,plyr):
-        return ((self.cells[1] == self.cells[2] == self.cells[3] == plyr) or (self.cells[4] == self.cells[5] == self.cells[6] == plyr)
-               or (self.cells[7] == self.cells[8] == self.cells[9] == plyr) or
-               (self.cells[7] == self.cells[5] == self.cells[8] == plyr) or
-               (self.cells[1] == self.cells[5] == self.cells[9] == plyr))
+        return ((self.cells[1] == self.cells[2] == self.cells[3] == plyr) or 
+                (self.cells[4] == self.cells[5] == self.cells[6] == plyr)or
+                (self.cells[7] == self.cells[8] == self.cells[9] == plyr) or
+               (self.cells[7] == self.cells[5] == self.cells[3] == plyr) or
+               (self.cells[1] == self.cells[5] == self.cells[9] == plyr) or
+               (self.cells[1] == self.cells[4] == self.cells[7] == plyr) or
+               (self.cells[2] == self.cells[5] == self.cells[8] == plyr) or
+               (self.cells[3] == self.cells[6] == self.cells[9] == plyr))
     def reset(self):
         self.cells = [' ' for i in range(0,10)]
     def is_tie(self):
@@ -42,7 +46,7 @@ class Board():
         self.display()
     @staticmethod
     def choice_player():
-        print('0 - 2 bots \n 1- player vs computer \n 2 - player vs player')
+        print('0 - 2 Ai bots \n 1- player vs computer \n 2 - player vs player')
         choice = input("Enter the no of player ")
         while choice not in ['0','1','2']:
             print('Enter valid option from 0,1,2')
@@ -51,12 +55,13 @@ class Board():
 
 def two_players():
     while True: 
-        x_choice = int(input("Enter From  1 to 9 For X :"))
+        x_choice = int(input("Enter From  1 to 9 For X : "))
         while board.cells[x_choice] != " " :
             print(f'{x_choice} is full try other number')
-            x_choice = int(input("Enter From  1 to 9 For X :"))
+            x_choice = int(input("Enter From  1 to 9 For X : "))
         board.update_cell(x_choice,'X')
         board.display()
+        print('Out Winner x')
         if board.winner('X'):
             print("X is a Winner")
             play_again = input("Would You like to Play again? (Y/N) :").upper()
@@ -79,6 +84,7 @@ def two_players():
             o_choice = int(input("Enter From  1 to 9 For O :"))
         board.update_cell(o_choice,'O')
         board.display()
+        print('Out Winner x')
         if board.winner('O'):
             print("O is a Winner")
             play_again = input("Would You like to Play again? (Y/N) :").upper()
@@ -161,6 +167,7 @@ def one_players():
                     continue
                 else:
                     break
+            print('Out Winner')
             if board.is_tie():
                 print("Game is Tie")
                 play_again = input("Would You like to Play again? (Y/N) :").upper()
