@@ -52,16 +52,21 @@ class Board():
             print('Enter valid option from 0,1,2')
             choice = input("Enter the no of player ")
         return int(choice)
+    def depth(self):
+        dept = 0
+        for i in range(1,10):
+            if self.cells == " ":
+                dept += 1
+        return dept
 
 def two_players():
     while True: 
         x_choice = int(input("Enter From  1 to 9 For X : "))
-        while board.cells[x_choice] != " " :
-            print(f'{x_choice} is full try other number')
+        while  not (x_choice >=1 and x_choice <=9) or board.cells[x_choice] != " "  :
+            print(f'{x_choice} is full try other number or enter valid number')
             x_choice = int(input("Enter From  1 to 9 For X : "))
         board.update_cell(x_choice,'X')
         board.display()
-        print('Out Winner x')
         if board.winner('X'):
             print("X is a Winner")
             play_again = input("Would You like to Play again? (Y/N) :").upper()
@@ -79,12 +84,11 @@ def two_players():
             else:
                 break
         o_choice = int(input("Enter From  1 to 9 For O :"))
-        while board.cells[o_choice] != " " :
-            print(f'{o_choice} is full try other number')
+        while not(o_choice >=1 and o_choice <=9) or board.cells[o_choice] != " " :
+            print(f'{o_choice} is full try other number or enter valid number')
             o_choice = int(input("Enter From  1 to 9 For O :"))
         board.update_cell(o_choice,'O')
         board.display()
-        print('Out Winner x')
         if board.winner('O'):
             print("O is a Winner")
             play_again = input("Would You like to Play again? (Y/N) :").upper()
@@ -110,10 +114,10 @@ def one_players():
     if selct_ltr == 'X':
         while True:
             x_choice = int(input("Enter From  1 to 9 For X : "))
-            while board.cells[x_choice] != " " :
-                print(f'{x_choice} is full try other number')
+            while  not (x_choice >=1 and x_choice <=9) or board.cells[x_choice] != " "  :
+                print(f'{x_choice} is full try other number or enter valid number')
                 x_choice = int(input("Enter From  1 to 9 For X : "))
-            board.update_cell(x_choice,'X')#' * * \n  * \n * * '
+            board.update_cell(x_choice,'X')
             board.display()
             if board.winner('X'):
                 print("X is a Winner")
@@ -132,7 +136,7 @@ def one_players():
                 else:
                     break    
             o_choice = board.ai_move('O')
-            board.update_cell(o_choice,'O')#' * * \n  * \n * * '
+            board.update_cell(o_choice,'O')
             board.display()
             if board.winner('O'):
                 print("O is a Winner")
@@ -154,10 +158,7 @@ def one_players():
     if selct_ltr == 'O':
         while True:
             x_choice = board.ai_move('X') 
-            while board.cells[x_choice] != " " :
-                print(f'{x_choice} is full try other number')
-                x_choice = int(input("Enter From  1 to 9 For X :"))
-            board.update_cell(x_choice,'X')#' * * \n  * \n * * '
+            board.update_cell(x_choice,'X')
             board.display()
             if board.winner('X'):
                 print("X is a Winner")
@@ -167,7 +168,6 @@ def one_players():
                     continue
                 else:
                     break
-            print('Out Winner')
             if board.is_tie():
                 print("Game is Tie")
                 play_again = input("Would You like to Play again? (Y/N) :").upper()
@@ -177,9 +177,13 @@ def one_players():
                 else:
                     break    
             o_choice = int(input("Enter From  1 to 9 For O :"))
-            board.update_cell(o_choice,'O')#' * * \n  * \n * * '
+            while not(o_choice >=1 and o_choice <=9) or board.cells[o_choice] != " " :
+                print(f'{x_choice} is full try other number or enter in the valid range')
+                x_choice = int(input("Enter From  1 to 9 For X :"))
+            board.update_cell(o_choice,'O')
             board.display()
             if board.winner('O'):
+
                 print("O is a Winner")
                 play_again = input("Would You like to Play again? (Y/N) :").upper()
                 if play_again == 'Y':
@@ -203,6 +207,5 @@ def main():
         two_players()
     if c == 1:
         one_players()
-
 board = Board()
 main()
